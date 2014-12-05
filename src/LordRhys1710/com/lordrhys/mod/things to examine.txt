@@ -1,0 +1,289 @@
+POtions, etc...
+duration is in Ticks
+20 Ticks = 1 sec.
+300 Ticks = 15sec. etc...
+
+private static int modBlockIndex;
+
+public static Block yourBlock1, yourBlock2, etc;
+
+// pre-init: get modBlockIndex start from config
+
+// init:
+yourBlock1 = new Block(modBlockIndex++);
+yourBlock2 = new Block(modBlockIndex++);
+etc.
+
+//		These line for using MetaData		
+		GameRegistry.registerBlock(tutorialBlock, ItemTutorialBlock.class, modid + (tutorialBlock.getUnlocalizedName().substring(5)));
+    LanguageRegistry.addName(new ItemStack(tutorialBlock, 1, 0), "Tutorial Block");
+    LanguageRegistry.addName(new ItemStack(tutorialBlock, 1, 1), "Nether Tutorial Block");
+		
+	public class PickupHandler implements IPickupHandler
+	{
+		public void notifyPickup(EntityItem item, EntityPlayer player)
+		{
+			if (item.getEntityItem().itemID == Item.diamond.itemID)
+			{
+				player.addStat(YourMod.diamond­Achievement, 1);
+			}
+		}
+	}
+  
+  //Achievements
+	public static Achievement breakAchievement;
+	public static Achievement craftAchievement;
+	
+	
+  //Settings for Achievements
+	breakAchievement = new Achievement(900, "breakAchievement", -2, 0, lightDirt, AchievementList.openInventory).registerAchievement();
+	craftAchievement = new Achievement(901, "craftAchievement", -2, -2, lightWand, null).registerAchievement();
+		
+	LanguageRegistry.instance().addStringLocalization("achievement.breakAchievement", "Break Light Dirt");
+	LanguageRegistry.instance().addStringLocalization("achievement.breakAchievement.desc", "You got Light Stones");
+	LanguageRegistry.instance().addStringLocalization("achievement.craftAchievement", "Craft Light Wand");
+	LanguageRegistry.instance().addStringLocalization("achievement.craftAchievement.desc", "You Crafted a Light Wand");
+		
+		public FluidExample( int id )
+	{
+		super( "example" );
+		
+		setDensity( 8 ); // used by the block to work out how much it slows entities
+		setViscosity( 4000 ); // used by the block to work out how fast it flows
+		
+		FluidRegistry.registerFluid( this );
+	}
+	
+  	@Override
+	@SideOnly(Side.CLIENT)
+	public Icon getIcon( int side, int meta )
+	{
+		if ( side <= 1 )
+			return iconStill;
+		else
+			return iconFlowing;
+	}
+
+  	FluidContainerRegistry.registerFluidContainer(
+		new FluidContainerData(
+			FluidRegistry.getFluidStack( ModExample.fluidExample.getName(), FluidContainerRegistry.BUCKET_VOLUME ),
+			new ItemStack( ModExample.bucketExample ),
+			new ItemStack( Item.bucketEmpty )
+		)
+	);
+
+  	@ForgeSubscribe
+	public void onBucketFill( FillBucketEvent event )
+	{
+		ItemStack result = attemptFill( event.world, event.target );
+		
+		if ( result != null )
+		{
+			event.result = result;
+			event.setResult( Result.ALLOW );
+		}
+	}
+
+  	private ItemStack attemptFill( World world, MovingObjectPosition p )
+	{
+		int id = world.getBlockId( p.blockX, p.blockY, p.blockZ );
+		
+		if ( id == ModExample.blockFluidExample.blockID )
+		{
+			if ( world.getBlockMetadata( p.blockX, p.blockY, p.blockZ ) == 0 ) // Check that it is a source block
+			{
+				world.setBlock( p.blockX, p.blockY, p.blockZ, 0 ); // Remove the fluid block
+				
+				return new ItemStack( ModExample.bucketExample );
+			}
+		}
+		
+		return null;
+	}
+
+  public class VgBucket extends ItemBucket {
+
+    private String itemName;
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void registerIcons(IconRegister register) {
+        this.itemIcon = register.registerIcon(Reference.MOD_ID + ":" + (this.getUnlocalizedName().substring(5)));
+    }
+
+    public VgBucket(int id, int par1, String name) {
+        super(id, par1);
+        this.itemName = name;
+        this.setUnlocalizedName(name);
+         MinecraftForge.EVENT_BUS.register(this);
+    }
+
+    @ForgeSubscribe
+    public void onBucketFill(FillBucketEvent event) {
+        ItemStack result = attemptFill(event.world, event.target);
+
+        if (result != null) {
+            event.result = result;
+            event.setResult(Result.ALLOW);
+        }
+    }
+
+    private ItemStack attemptFill(World world, MovingObjectPosition p) {
+        int id = world.getBlockId(p.blockX, p.blockY, p.blockZ);
+
+        if (id == LiquidHandler.Darknessliquid.blockID) {
+            if (world.getBlockMetadata(p.blockX, p.blockY, p.blockZ) == 0) // Check that it is a source block
+            {
+                world.setBlock(p.blockX, p.blockY, p.blockZ, 0); // Remove the fluid block
+
+                return new ItemStack(ItemHandler.darknessbucket); // Return the filled bucked item here.
+            }
+        }
+
+        return null;
+    }
+
+}
+
+*********************************************************************************************
+Config File stuff
+By the way, you can read default config files with Configuration class.
+int[] white = config.get("WorldGen","dimensionWhitelistList", new int[] {0}).getIntList(); //read the values, supplying defaults
+			int[] black = config.get("WorldGen","dimensionBlacklistList", new int[] {-1,1}).getIntList();
+			
+			Arrays.sort(white); //sort
+			Arrays.sort(black);
+			
+			String a=Arrays.toString(white);
+			String whitestring[]=a.substring(1,a.length()-1).split(", "); //have to convert to a string array in order to write
+			String b=Arrays.toString(black);
+			String blackstring[]=b.substring(1,b.length()-1).split(", ");
+
+			config.get("WorldGen","dimensionWhitelistList", new int[] {0}).set(whitestring); //default values here are irrelevant, but required in order to retrieve the config Property
+			config.get("WorldGen","dimensionBlacklistList", new int[] {-1,1}).set(blackstring);
+      
+********************************************************************************************************
+
+Adding custom sounds
+ Just a little info dump on how to add sounds for 1.6.X+
+
+Spoiler:   
+
+
+
+ Sound files should be placed into the following location:
+ "assets/{modID}/sound"
+ So for my mod which has a modID="mazmod" it would be:
+ "assets/mazmod/sound"
+
+ NB: Keep in mind all modid's MUST be all lowercase!
+ i.e. mazMod will result in an error when exporting the mod!
+
+ Sounds are loaded with the SoundLoadEvent, if you are unfamiliar with events you may want to look into them. The class name is irrelevant but you will need to reference it later.
+public class TutSoundEvents {@ForgeSubscribepublic void onSound(SoundLoadEvent event) {// You add them the same way as you add blocks.event.manager.addSound("mod_id:hit.ogg");}
+ As with all events you need to register the event subscription, so forge knows to notify the class of events.
+ So add this to Client Proxy (or at least make sure to call it on client side only),
+ and call it during the setup.
+MinecraftForge.EVENT_BUS.register(new TutSoundEvents()); // Name of the class containing the ForgeSubscribe above
+ Then you can play the sound at anytime by using the playSound.. methods of World such as:
+// Args: entity, sound, volume (relative to 1.0), and frequency (or pitch, also relative to 1.0)WorldObject.playSoundAtEntity(EntityPlayerObject, "mod_id:hit", 1.0F, 1.0F);// if you have file names which ends with an number, exclude the number when using playSound!
+Randomness to sounds
+ Minecraft has a simple and nice system for having variations in your sounds.
+ If I used just the "hit" for every onHit with my sword it would be rather static and boring.
+ So to fix that let's add two sound files like this:
+event.manager.addSound("mod_id:hit1.ogg");event.manager.addSound("mod_id:hit2.ogg");}These will be grouped as variations of the same sound, called "hit".
+ So by referring to the "hit" sound you will get one of the two at random!
+ You can of course have many many more different files than just two Posted Image
+
+ To play them simply as it to play the sound name without the number:
+world.playSoundAtEntity(player, "modid:hit", 1F, 1F);
+ NB!: asking it to play "hit1" or anyother sound name which ends in a number will fail even if it's the only sound in the group!
+
+ Minecraft has a cool feature which lets you give it several sounds with similar names and let it choose one at random whenever it's called for. This is simply done by having numbers in the end of the sounds name.
+event.manager.addSound("modid:hit1.ogg");event.manager.addSound("modid:hit2.ogg");And then when you call the sound just use the string "modid:hit" and it will randomly choose between the sounds named hit[#].
+world.playSoundAtEntity(player, "modid:hit", 1F, 1F);
+ Quite nice when you want to have variations on the sound effects in your mod.
+ NB: This means that calling for a sound which ends with a number directly will not work!
+// Does NOT work!!!world.playSoundAtEntity(player, "modid:hit1", 1F, 1F);// since hit1 is grouped as a possible file to play for "hit" it's not found when minecraft looks for the group "hit1" since it's not there!
+
+ Creating a new simple Fluid:
+
+Spoiler:   
+
+
+ While creating my own fluid I found a post on the forge forums where Homletmoo explained it to another user.
+ So I got it to work after a while and since then I have seen other questions about the fluid system, so I decided to use a few minutes to tell how to add a simple fluid.
+
+
+ We start by creating the Fluid, so create a class which extends Fluid.
+ Pass a fluid name to the super constructor.
+ Then we can set the Density and Vicosity of the fluid.
+ Lastly we want to make the FluidRegistry register the fluid.
+
+ Heres how my fluid looks like:
+public class TutFluid extends Fluid
+{
+public TutFluid()
+{
+super("TutorialFluid");
+setDensity(10); // How tick the fluid is, affects movement inside the liquid.
+setViscosity(1000); // How fast the fluid flows.
+FluidRegistry.registerFluid(this); // Registering inside it self, keeps things neat :)
+}
+}
+ We initialize the Fluid in the same way as with items and blocks.
+ It handles registration of itself inside the class so we only need to intialize it.
+ Because FluidBlocks need access to their fluids we must initalize fluids BEFORE blocks!
+public static Fluid tutFluid;// and before blocks are initialized:
+tutFluid = new TutFluid();
+ Now on to the block. I will not cover how it's initialized as it's the same as any other block.
+ Just make sure it's after the respective fluid is initialized.
+
+public class BlockTutFluid extends BlockFluidClassic 
+{
+public BlockTutFluid(int Id)
+{
+super(id, ModTutorial.tutFluid, Material.water);
+ModTutorial.tutFluid.setBlockID(id); // Set the fluids block ID to this block.
+}// Use Register Icon as usual to get the block's icon.
+// If you want you can reuse the water texture and change the color of it by doing as I have below:
+@Override
+@SideOnly(Side.CLIENT)
+public Icon getIcon(int side, int meta) 
+{
+return Block.waterMoving.getIcon(side, meta);
+}
+
+@Override
+public int colorMultiplier(IBlockAccess iblockaccess, int x, int y, int z)
+{
+return 0x66FF00; // HEX color code as indicated by the 0x infront. This is a greenish color.
+}
+
+ That's it! You should now have a working fluid block!
+ If you want to be able to use a bucket to pick up the fluid keep reading.
+
+ Okay let's start by creating an item which will act as our bucket item, this will be the filled bucket.
+ If the player uses an empty bucket on our fluid we want him to get a bucket full of that fluid, and that's the item we are creating now.
+
+ So create a class which extends ItemFluidContainer, the super constructor wants the itemID.
+ No need to show you that code, the interesting part is the onItemRightClick method.
+ You need to override that and inside it do the following (code based upon ItemBucket):
+ [spoiler]
+MovingObjectPosition movingobjectposition = this.getMovingObjectPositionFromPlayer(world, player, true);if (movingobjectposition == null){return item;}else{FillBucketEvent event = new FillBucketEvent(player, item, world, movingobjectposition);if (MinecraftForge.EVENT_BUS.post(event)){return item;}if (event.getResult() == Event.Result.ALLOW){if (player.capabilities.isCreativeMode){return item;}if (--item.stackSize <= 0){return event.result;}if (!player.inventory.addItemStackToInventory(event.result)){player.dropPlayerItem(event.result);}return item;}if (movingobjectposition.typeOfHit == EnumMovingObjectType.TILE){int x = movingobjectposition.blockX;int y = movingobjectposition.blockY;int z = movingobjectposition.blockZ;if (!world.canMineBlock(player, x, y, z)){return item;}if (movingobjectposition.sideHit == 0){--y;}if (movingobjectposition.sideHit == 1){++y;}if (movingobjectposition.sideHit == 2){--z;}if (movingobjectposition.sideHit == 3){++z;}if (movingobjectposition.sideHit == 4){--x;}if (movingobjectposition.sideHit == 5){++x;}if (!player.canPlayerEdit(x, y, z, movingobjectposition.sideHit, item)){return item;}if (this.tryPlaceContainedLiquid(world, x, y, z) && !player.capabilities.isCreativeMode){return new ItemStack(Item.bucketEmpty);}}return item;[spoiler]
+
+ This checks if you can place the fluid at that location and if you can then it places the fluid there and repalces the item with an empty bucket.
+ If you are using you're own empty fluid container then return it here instead.
+
+ If you are using a different item than the empty bucket to pickup the fluid you will have to modify the onRightClick method for that item.
+ It's of course possible to use the same item for the empty and full container, it shouldn't be hard for you to figure it out if you want to.
+ But if you are going to use the regular empty bucket then read on Posted Image
+
+ So for the bucket to work we need to know when the player is using the bucket on our fluid.
+ NB: This means using events, if you aren't familiar with events go read up on them before you continue as this tutorial does NOT cover events.
+ That means we will need to listen for a bucket event like this:
+@ForgeSubscribe(priority = EventPriority.NORMAL)public void FillBucket(FillBucketEvent event) {ItemStack result = attemptFill(event.world, event.target);if (result != null) {event.result = result;event.setResult(Result.ALLOW);}}private ItemStack attemptFill( World world, MovingObjectPosition p ){int id = world.getBlockId( p.blockX, p.blockY, p.blockZ );if ( id == ModTutorial.tutorialFluidBlock.blockID ){if ( world.getBlockMetadata( p.blockX, p.blockY, p.blockZ ) == 0 ) // Check that it is a source block{world.setBlock( p.blockX, p.blockY, p.blockZ, 0 ); // Remove the fluid blockreturn new ItemStack( ModItems.bucketTutFluid ); // Return the filled bucked item here.}}return null;}That's it, we now have our very own fluid!
+ You can of course custemize it however you would like! you could for example make it hurt on contact(by using onEntityCollidedWithBlock) or whatever you'd like.
+ 
+ 
+ 

@@ -1,0 +1,16 @@
+[
+{
+  "modid": "lordrhys",
+  "name": "Golden Energy",
+  "description": "LordRhys Golden Energy World",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["LordRhys"],
+  "credits": "LordRhys, ScratchForFun Tutorials, The Forge and FML guys, for making this possible",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

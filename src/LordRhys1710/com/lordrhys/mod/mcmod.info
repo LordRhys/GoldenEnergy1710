@@ -1,0 +1,17 @@
+[
+{
+  "modid": "lordrhys_mod",
+  "name": "LordRhys Mod",
+  "description": "LordRhys's Light Infused Mod with food",
+  "version": "1.0.0",
+  "mcversion": "1.6.4",
+  "logoFile": "",
+  "url": "",
+  "updateUrl": "",
+  "authors": ["LordRhys"],
+  "credits": "Made by the LordRhys",
+  "parent": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

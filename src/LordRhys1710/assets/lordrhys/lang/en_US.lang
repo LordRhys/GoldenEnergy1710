@@ -1,0 +1,100 @@
+itemGroup.energyTab=Energy
+itemGroup.energyCombatTab=Energy Combat
+itemGroup.energyToolsTab=Energy Tools
+itemGroup.energyFoodsTab=Energy Food
+itemGroup.energyMaterialsTab=Energy Materials
+
+tile.fluidLight.name=Energy
+tile.fluidAcid.name=Acid
+
+tile.lightDirt.name=Light Dirt
+tile.lightWand.name=Energy Torch
+tile.lightLiquid.name=Liquid Energy
+tile.acidLiquid.name=Liquid Acid
+tile.goldenDirt.name=Golden Dirt
+tile.tilledGoldenField.name=Golden Farmland
+tile.goldenGrass.name=Golden Grass
+tile.energizedTrashcan.name=Energized Trashcan
+tile.blockTeleporter.name=Teleporter
+tile.teleporterFire.name=Blue Fire
+tile.blockWindmillGround.name=Windmill Base
+
+tile.goldenLog.name=Golden Wood
+tile.goldenLeaf.name=Golden Leaves
+tile.goldenSapling.name=Golden Sapling
+tile.goldenWoodPlank.name=Golden Planks
+tile.tomatoPlant.name=Tomato Plant
+
+tile.goldenChest.name=Golden Chest
+tile.goldenChestTrapped.name=Trapped Golden Chest
+tile.goldenFurnaceIdle.name=Golden Furnace
+tile.goldenFurnaceActive.name=Golden Furnace In Use
+tile.furnaceOfLightIdle.name=Furnace Of Light
+tile.furnaceOfLightActive.name=Furnace Of Light In Light
+tile.goldenCraftTable.name=Golden Workbench
+tile.goldenMaceratorIdle.name=Golden Macerator
+tile.goldenMaceratorActive.name=Golden Maceration
+
+tile.lightStoneHalfSlab.name=LightStone Slab
+tile.lightStoneDoubleSlab.name=LightStone Full Slab
+tile.voidPowderHalfSlab.name=Void Powder Slab
+tile.voidPowderDoubleSlab.name=Void Full Slab
+tile.lightStoneStair.name=LightStone Stairs
+
+tile.tinOre.name=Tin Ore
+tile.nickelOre.name=Nickel Ore
+tile.voidOre.name=Void Ore
+tile.copperOre.name=Copper Ore
+tile.randomiteOre.name=Randomite Ore
+tile.sulphurOre.name=Sulphur Ore
+tile.rhodiumOre.name=Rhodium Ore
+
+tile.blueFlower.name=Blue Flower
+tile.purpleFlower.name=Lavender
+
+item.lightStoneDust.name=Light Stone Dust
+item.lightStone.name=Light Stone
+
+item.bucketOfLight.name=Energy Bucket
+item.bucketOfAcid.name=Acid Bucket
+
+item.ingotSteel.name=Steel Ingot
+item.ingotTin.name=Tin Ingot
+item.ingotNickel.name=Nickel Ingot
+item.ingotBronze.name=Bronze Ingot
+item.ingotCopper.name=Copper Ingot
+item.ingotVoid.name=Void Ingot
+item.voidPowder.name=Void Powder
+item.randomitePowder.name=Randomite Powder
+item.cobblestoneNugget.name=Cobblestone Nugget
+item.energyIgniter.name=Energy Igniter
+item.crushedIron.name=Crushed Iron
+item.energyCell.name=Energy Battery
+item.randomite.name=Randomite
+item.sulphurNugget.name=Sulphur Nugget
+item.rhodium.name=Rhodium
+    
+item.energyAxe.name=Energy Axe
+item.energyHoe.name=Energy Hoe
+item.energyShovel.name=Energy Shovel
+item.energyPickaxe.name=Energy Pickaxe
+
+item.cheese.name=Cheese
+item.cheeseburger.name=CheeseBurger
+item.hamburger.name=Hamburger
+item.baconAndEggs.name=Bacon and Eggs
+item.sloppyJoe.name=Sloppy Joe
+item.beefStew.name=Beef Stew
+item.tomato.name=Tomato
+    
+item.purple_lightsaber.name=Light Saber
+item.goldenBow.name=Energy Bow
+ 
+item.lightLeggings.name=Energy Leggings
+item.lightHelmet.name=Energy Helmet
+item.lightBoots.name=Energy Boots
+item.lightChestplate.name=Energy Chestplate
+    
+item.windmill.name=Windmill
+
+entity.Reddy Freddy.name=Evil Bob
